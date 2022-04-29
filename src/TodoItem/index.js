@@ -1,5 +1,6 @@
 import React from 'react';
 import './TodoItem.css';
+import { FcCheckmark, FcCancel } from "react-icons/fc";
 
 function TodoItem(props) {
   return (
@@ -8,7 +9,7 @@ function TodoItem(props) {
         className={`Icon Icon-check ${props.completed && 'Icon-check--active'}`}
         onClick={props.onComplete}
       >
-        √
+        <FcCheckmark />
       </span>
       <p className={`TodoItem-p ${props.completed && 'TodoItem-p--complete'}`}>
         {props.text}
@@ -17,7 +18,7 @@ function TodoItem(props) {
         className="Icon Icon-delete"
         onClick={props.onDelete}
       >
-        X
+        <FcCancel />
       </span>
     </li>
   );
