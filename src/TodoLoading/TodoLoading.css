@@ -1,0 +1,8 @@
+.loading-text {
+  margin-block-start: 100px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  height: 50vh;
+  background: url(https://tenor.com/view/loading-cat-thinking-wait-what-gif-15922897.gif) no-repeat center;
+}
