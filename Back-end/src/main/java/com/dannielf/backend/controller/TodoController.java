@@ -5,10 +5,10 @@ import com.dannielf.backend.service.TodoService;
 import com.dannielf.backend.utils.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,16 +22,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class TodoController {
 
     private final TodoService service;
-
-    private final Response response = new Response();
-    private HttpStatus httpStatus = HttpStatus.OK;
-
     public TodoController(TodoService service) {
         this.service = service;
     }
 
+    private final Response response = new Response();
+    private HttpStatus httpStatus = HttpStatus.OK;
+
+
     @GetMapping()
     public ResponseEntity<Response> list() {
+        System.out.println(service.list());
         response.restart();
         try {
             response.data = service.list();
@@ -42,8 +43,10 @@ public class TodoController {
         return new ResponseEntity<>(response, httpStatus);
     }
 
+    @CrossOrigin
     @PostMapping()
     public ResponseEntity<Response> save(@RequestBody Todo todo) {
+        System.out.println("POST -> "+todo);
         response.restart();
         try {
             response.data = service.save(todo);
@@ -54,8 +57,10 @@ public class TodoController {
         return new ResponseEntity<>(response, httpStatus);
     }
 
+    @CrossOrigin
     @PutMapping(path = "/{id}")
     public ResponseEntity<Response> update(@PathVariable("id") Long id, @RequestBody Todo todo) {
+        System.out.println("PUT -> " + todo);
         response.restart();
         try {
             response.data = service.update(id, todo);
@@ -66,8 +71,24 @@ public class TodoController {
         return new ResponseEntity<>(response, httpStatus);
     }
 
+    @CrossOrigin
+    @PatchMapping(path = "/completed/{id}")
+    public ResponseEntity<Response> updateCompleted(@PathVariable("id") Long id) {
+        response.restart();
+        try {
+            response.data = service.updateCompleted(id);
+            httpStatus = HttpStatus.OK;
+        } catch (Exception e) {
+            getErrorMessageInternal(e);
+        }
+        return new ResponseEntity<>(response, httpStatus);
+    }
+
+
+    @CrossOrigin
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Response> delete(@PathVariable("id") Long id) {
+        System.out.println("DELETE -> " + id);
         response.restart();
         try {
             response.data = service.delete(id);

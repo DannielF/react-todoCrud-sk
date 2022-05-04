@@ -15,11 +15,13 @@ import java.util.Optional;
 @Service
 public class TodoService {
 
+
     private final TodoRepository repository;
 
     public TodoService(TodoRepository repository) {
         this.repository = repository;
     }
+
 
     @Transactional(readOnly = true)
     public List<Todo> list() {
@@ -38,6 +40,13 @@ public class TodoService {
         log.debug("Todo updated with id: " + id);
         todo.setId(id);
         return repository.save(todo);
+    }
+
+    @Transactional
+    public Todo updateCompleted(Long id) {
+        Todo todoToUpdate = repository.findById(id).orElseThrow();
+        todoToUpdate.setCompleted(Boolean.TRUE);
+        return repository.save(todoToUpdate);
     }
 
     @Transactional
