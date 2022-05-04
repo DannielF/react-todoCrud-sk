@@ -51,10 +51,15 @@ public class TodoServiceTest {
 
     }
 
-//    @Test
-//    public void testDeleteTodo() {
-//        Long id = 1L;
-//    }
+    @Test
+    public void testDeleteTodo() {
+        Long id = 1L;
+        Todo todo = new Todo(1L, "test 1", true);
+        repository.save(todo);
+        repository.deleteById(id);
+        assertThat(repository.findById(id)).isNotPresent();
+
+    }
 
     @Test
     public void testGetByIdTodo() {

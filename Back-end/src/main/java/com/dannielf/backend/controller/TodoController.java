@@ -32,7 +32,6 @@ public class TodoController {
 
     @GetMapping()
     public ResponseEntity<Response> list() {
-        System.out.println(service.list());
         response.restart();
         try {
             response.data = service.list();
@@ -46,7 +45,6 @@ public class TodoController {
     @CrossOrigin
     @PostMapping()
     public ResponseEntity<Response> save(@RequestBody Todo todo) {
-        System.out.println("POST -> "+todo);
         response.restart();
         try {
             response.data = service.save(todo);
@@ -60,7 +58,6 @@ public class TodoController {
     @CrossOrigin
     @PutMapping(path = "/{id}")
     public ResponseEntity<Response> update(@PathVariable("id") Long id, @RequestBody Todo todo) {
-        System.out.println("PUT -> " + todo);
         response.restart();
         try {
             response.data = service.update(id, todo);
@@ -88,7 +85,6 @@ public class TodoController {
     @CrossOrigin
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Response> delete(@PathVariable("id") Long id) {
-        System.out.println("DELETE -> " + id);
         response.restart();
         try {
             response.data = service.delete(id);
