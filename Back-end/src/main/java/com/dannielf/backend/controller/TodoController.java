@@ -90,10 +90,10 @@ public class TodoController {
             response.data = service.delete(id);
 
             if (response.data == null) {
-                response.message = "El contacto no existe";
+                response.message = "El Todo no existe";
                 httpStatus = HttpStatus.NOT_FOUND;
             } else {
-                response.message = "El contacto fue removido exitosamente";
+                response.message = "El Todo fue removido exitosamente";
                 httpStatus = HttpStatus.OK;
             }
         } catch (Exception exception) {
